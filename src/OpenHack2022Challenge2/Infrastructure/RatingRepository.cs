@@ -4,7 +4,11 @@ using System.Text;
 
 namespace OpenHack2022.Infrastructure
 {
-    internal class RatingRepository
+    public class RatingRepository
     {
+        public RatingRepository()
+        {
+
+        }
     }
 }

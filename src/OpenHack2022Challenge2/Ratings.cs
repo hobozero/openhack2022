@@ -10,6 +10,7 @@ using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using OpenHack2022.Infrastructure;
 using OpenHack2022.Models;
 
 namespace OpenHack2022
@@ -17,10 +18,16 @@ namespace OpenHack2022
     public class Ratings
     {
         private readonly ILogger<Ratings> _logger;
+        private readonly RatingRepository _repo;
 
-        public Ratings(ILogger<Ratings> log)
+        public Ratings(ILogger<Ratings> log) : this(log, new RatingRepository())
+        {
+        }
+
+        public Ratings(ILogger<Ratings> log, RatingRepository repo)
         {
             _logger = log;
+            _repo = repo;
         }
 
         [FunctionName("CreateRatings")]
