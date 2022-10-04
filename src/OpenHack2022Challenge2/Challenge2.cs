@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace OpenHack2022Challenge2
 {
-    public static class Function1
+    public static class Challenge2
     {
         [FunctionName("echo")]
         public static async Task<IActionResult> RunName(
