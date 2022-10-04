@@ -31,7 +31,7 @@ namespace OpenHack2022
         public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req)
         {
-            _logger.LogInformation("Rating created");
+            _logger.LogInformation($"Rating created test");
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             var ratingData = JsonConvert.DeserializeObject<Rating>(requestBody);
