@@ -29,7 +29,10 @@ namespace OpenHack2022.Tests
         public void RatingShouldBeOneToFive(int ratingNumber)
         {
             var serviceUnderTest = StubService();
-            var ratingUnderTest = new RatingModel(Guid.NewGuid(), Guid.NewGuid(), string.Empty, ratingNumber, string.Empty);
+            var ratingUnderTest = new RatingModel()
+            {
+                
+            };
             var result = serviceUnderTest.AddRating(ratingUnderTest);
             Assert.IsFalse(result.Success);
         }

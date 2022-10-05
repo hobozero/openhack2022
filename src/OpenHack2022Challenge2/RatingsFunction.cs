@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -67,7 +69,65 @@ namespace OpenHack2022
                 document = null;
                 return new BadRequestObjectResult(ex.Message);
             }
+        }
 
+
+
+        [FunctionName("Rating")]
+        [OpenApiOperation(operationId: "GetRating", tags: new[] { "name" })]
+        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
+        [OpenApiParameter(name: "rating", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The **Rating** parameter")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "The OK response")]
+        public IActionResult GetRating(
+            [CosmosDB(
+                databaseName: "Ratings",
+                collectionName: "CustomerRating2",
+                ConnectionStringSetting = "CosmosDBConnectionString",
+                SqlQuery = "select * from r where r.id = {id}" //{Query.userId}
+                //Id = "{Query.id}",
+                //PartitionKey = "{Query.productId}"
+            )]IEnumerable<RatingModel> ratingDocs,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "rating/id/{id}")] HttpRequest req)
+        {
+            _logger.LogInformation($"Rating queried");
+
+            if (ratingDocs == null)
+            {
+                return new NotFoundResult();
+            }
+            else
+            {
+                return new OkObjectResult(ratingDocs.FirstOrDefault());
+            }
+        }
+
+        [FunctionName("Ratings")]
+        [OpenApiOperation(operationId: "GetRatings", tags: new[] { "name" })]
+        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
+        [OpenApiParameter(name: "rating", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The **Rating** parameter")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "The OK response")]
+        public IActionResult GetRatings(
+            [CosmosDB(
+                databaseName: "Ratings",
+                collectionName: "CustomerRating2",
+                ConnectionStringSetting = "CosmosDBConnectionString",
+                SqlQuery = "select * from r where r.userId = {userId}" //{Query.userId}
+                //Id = "{Query.id}",
+                //PartitionKey = "{Query.productId}"
+            )]IEnumerable<RatingModel> ratingDocs,
+
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "rating/user/{userId}")] HttpRequest req)
+        {
+            _logger.LogInformation($"Rating queried");
+
+            if (ratingDocs == null)
+            {
+                return new NotFoundResult();
+            }
+            else
+            {
+                return new OkObjectResult(ratingDocs);
+            }
         }
     }
 }

@@ -10,26 +10,16 @@ namespace OpenHack2022.Models
         {
             id = Guid.NewGuid();
             timeStamp = DateTime.UtcNow;
-            Finalized = true;
         }
 
-        public RatingModel(Guid userId, Guid productId, string locationName, int rating, string userNotes)
-        {
-            this.userId = userId;
-            this.productId = productId;
-            this.locationName = locationName;
-            this.rating = rating;
-            this.userNotes = userNotes;
-        }
 
-        internal bool Finalized { get; private set; }
-        public Guid? id { get; private set; }
-        public DateTime timeStamp { get; private set; }
-        public Guid userId { get; private set; }
-        public Guid productId { get; private set; }
-        public string locationName { get; private set; }
-        public int rating { get; private set; }
-        public string userNotes { get; private set; }
+        public Guid? id { get; set; }
+        public DateTime timeStamp { get; set; }
+        public Guid userId { get; set; }
+        public Guid productId { get; set; } 
+        public string locationName { get; set; }
+        public int rating { get; set; }
+        public string userNotes { get; set; }
     }
 
 }
