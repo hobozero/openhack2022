@@ -32,30 +32,30 @@ namespace OpenHack2022.Application
         //    _repo = new RatingRepository(connectionString);
         //}
 
-        public async Task<Result<Rating>> AddRating(Rating rating)
+        public async Task<Result<RatingModel>> AddRating(RatingModel rating)
         {
             //TODO: replace with fluent Validation?
-            if (rating.rating > 5)
+            if (rating.Rating > 5)
             {
-                return rating.ToErrorResult("rating too high", new Dictionary<string, string>() { { "rating", rating.rating.ToString() } });
+                return rating.ToErrorResult("rating too high", new Dictionary<string, string>() { { "rating", rating.Rating.ToString() } });
             }
-            if (rating.rating < 1)
+            if (rating.Rating < 1)
             {
-                return rating.ToErrorResult("rating too low", new Dictionary<string, string>() { { "rating", rating.rating.ToString() } });
+                return rating.ToErrorResult("rating too low", new Dictionary<string, string>() { { "rating", rating.Rating.ToString() } });
             }
 
             //TODO: Get base URL from config
-            var userResult = await _httpClient.GetAsync($"https://serverlessohapi.azurewebsites.net/api/GetUser?userId={rating.userId}");
+            var userResult = await _httpClient.GetAsync($"https://serverlessohapi.azurewebsites.net/api/GetUser?userId={rating.UserId}");
             if (userResult.StatusCode != HttpStatusCode.OK)
             {
-                return "user not found".ToErrorResult<Rating>(new Dictionary<string, string>() { { "user", rating.userId.ToString() } });
+                return "user not found".ToErrorResult<RatingModel>(new Dictionary<string, string>() { { "user", rating.UserId.ToString() } });
             }
 
             //TODO: Get base URL from config
-            var productResult = await _httpClient.GetAsync($"https://serverlessohapi.azurewebsites.net/api/GetProduct?productId={rating.productId}");
+            var productResult = await _httpClient.GetAsync($"https://serverlessohapi.azurewebsites.net/api/GetProduct?productId={rating.ProductId}");
             if (productResult.StatusCode != HttpStatusCode.OK)
             {
-                return "product not found".ToErrorResult<Rating>(new Dictionary<string, string>() { { "product", rating.productId.ToString() } });
+                return "product not found".ToErrorResult<RatingModel>(new Dictionary<string, string>() { { "product", rating.ProductId.ToString() } });
             }
 
             rating = await _repo.CreateRating(rating);
@@ -63,20 +63,20 @@ namespace OpenHack2022.Application
             return rating.ToSuccessResult();
         }
 
-        public async Task<Result<Rating>> AddRating(string submission)
+        public async Task<Result<RatingModel>> AddRating(string submission)
         {
-            Rating ratingPosted = null;
+            RatingModel ratingPosted = null;
             try
             {
-                 ratingPosted = JsonConvert.DeserializeObject<Rating>(submission);
+                 ratingPosted = JsonConvert.DeserializeObject<RatingModel>(submission);
             }
             catch (JsonReaderException jex)
             {
-                return "There was an error parsing rating".ToErrorResult<Rating>();
+                return "There was an error parsing rating".ToErrorResult<RatingModel>();
             }
             catch (JsonSerializationException jex)
             {
-                return "There was an error parsing rating".ToErrorResult<Rating>();
+                return "There was an error parsing rating".ToErrorResult<RatingModel>();
             }
 
             return await AddRating(ratingPosted);

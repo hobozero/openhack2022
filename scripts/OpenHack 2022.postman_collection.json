@@ -1,0 +1,176 @@
+{
+	"info": {
+		"_postman_id": "7a4051e4-ccb8-4308-aa20-69cc53442dc2",
+		"name": "OpenHack 2022",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Echo Azure function",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://openhack2022challenge220221004094019.azurewebsites.net/api/echo?name=boost",
+					"protocol": "https",
+					"host": [
+						"openhack2022challenge220221004094019",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"echo"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "boost"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Challenge2 LogicApp",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"productId\": \"75542e38-563f-436f-adeb-f426f1dabb5c\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://prod-03.westus2.logic.azure.com:443/workflows/d28c37dfd18949b7aa6d028014d202b5/triggers/request/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Frequest%2Frun&sv=1.0&sig=fwcyLrY-TYfpRhrgvAIgkhnFeIr6tYB_5vEQ64PpiOI",
+					"protocol": "https",
+					"host": [
+						"prod-03",
+						"westus2",
+						"logic",
+						"azure",
+						"com"
+					],
+					"port": "443",
+					"path": [
+						"workflows",
+						"d28c37dfd18949b7aa6d028014d202b5",
+						"triggers",
+						"request",
+						"paths",
+						"invoke"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "2016-10-01"
+						},
+						{
+							"key": "sp",
+							"value": "%2Ftriggers%2Frequest%2Frun"
+						},
+						{
+							"key": "sv",
+							"value": "1.0"
+						},
+						{
+							"key": "sig",
+							"value": "fwcyLrY-TYfpRhrgvAIgkhnFeIr6tYB_5vEQ64PpiOI"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Local Azure function",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7071/api/echo?name=boost",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7071",
+					"path": [
+						"api",
+						"echo"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "boost"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateRating Local",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userId\": \"cc20a6fb-a91f-4192-874d-132493685376\",\r\n  \"productId\": \"4c25613a-a3c2-4ef3-8e02-9c335eb23204\",\r\n  \"locationName\": \"Sample ice cream shop\",\r\n  \"rating\": 5,\r\n  \"userNotes\": \"I love the subtle notes of orange in this ice cream!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7071/api/CreateRatings",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7071",
+					"path": [
+						"api",
+						"CreateRatings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateRating Azure",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userId\": \"cc20a6fb-a91f-4192-874d-132493685376\",\r\n  \"productId\": \"4c25613a-a3c2-4ef3-8e02-9c335eb23204\",\r\n  \"locationName\": \"Sample ice cream shop\",\r\n  \"rating\": 5,\r\n  \"userNotes\": \"I love the subtle notes of orange in this ice cream!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://openhack2022challenge220221004094019.azurewebsites.net/api/CreateRatings",
+					"protocol": "https",
+					"host": [
+						"openhack2022challenge220221004094019",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"CreateRatings"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

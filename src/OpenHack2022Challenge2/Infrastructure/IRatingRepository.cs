@@ -7,8 +7,8 @@ namespace OpenHack2022.Infrastructure
 {
     public interface IRatingRepository
     {
-        Task<Rating> CreateRating(Rating rating);
-        Task<Rating> GetRating(Guid ratingId);
-        Task<IEnumerable<Rating>> GetRatings();
+        Task<RatingModel> CreateRating(RatingModel rating);
+        Task<RatingModel> GetRating(Guid ratingId);
+        Task<IEnumerable<RatingModel>> GetRatings();
     }
 }

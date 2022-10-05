@@ -29,7 +29,7 @@ namespace OpenHack2022.Tests
         public async Task RatingShouldBeOneToFive(int ratingNumber)
         {
             var serviceUnderTest = StubService();
-            var ratingUnderTest = new Rating(Guid.NewGuid(), Guid.NewGuid(), string.Empty, ratingNumber, string.Empty);
+            var ratingUnderTest = new RatingModel(Guid.NewGuid(), Guid.NewGuid(), string.Empty, ratingNumber, string.Empty);
             var result = await serviceUnderTest.AddRating(ratingUnderTest);
             Assert.IsFalse(result.Success);
         }
