@@ -91,7 +91,7 @@ namespace OpenHack2022
         {
             _logger.LogInformation($"Rating queried");
 
-            if (ratingDocs == null)
+            if (ratingDocs?.Count() == 0)
             {
                 return new NotFoundResult();
             }
@@ -120,7 +120,7 @@ namespace OpenHack2022
         {
             _logger.LogInformation($"Rating queried");
 
-            if (ratingDocs == null)
+            if (ratingDocs.Count() == 0)
             {
                 return new NotFoundResult();
             }
