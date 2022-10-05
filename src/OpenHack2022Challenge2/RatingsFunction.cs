@@ -10,44 +10,49 @@ using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using OpenHack2022.Application;
 using OpenHack2022.Infrastructure;
 using OpenHack2022.Models;
 
 namespace OpenHack2022
 {
-    public class Ratings
+    public class RatingsFunction
     {
-        private readonly ILogger<Ratings> _logger;
-        private readonly RatingRepository _repo;
+        private readonly ILogger<RatingsFunction> _logger;
+        private readonly RatingService _ratingService;
 
-        public Ratings(ILogger<Ratings> log) : this(log, new RatingRepository())
-        {
-        }
 
-        public Ratings(ILogger<Ratings> log, RatingRepository repo)
+        public RatingsFunction(ILogger<RatingsFunction> log) 
         {
             _logger = log;
-            _repo = repo;
+            _ratingService = new RatingService();
         }
+
 
         [FunctionName("CreateRatings")]
         [OpenApiOperation(operationId: "Run", tags: new[] { "name" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
         [OpenApiParameter(name: "rating", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The **Rating** parameter")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "The OK response")]
-        public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req)
+        public async Task<IActionResult> CreateRatings(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req)
         {
             _logger.LogInformation($"Rating created test");
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            var ratingData = JsonConvert.DeserializeObject<Rating>(requestBody);
 
-            string responseMessage = string.IsNullOrEmpty(ratingData?.productId.ToString())
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Hello, {ratingData.productId}. This HTTP triggered function executed successfully.";
 
-            return new OkObjectResult(responseMessage);
+            try
+            {
+                var ratingResponse = await _ratingService.AddRating(requestBody);
+                string responseMessage = JsonConvert.SerializeObject(ratingResponse.Data);
+                return new OkObjectResult(responseMessage);
+            }
+            catch(OperationResponseException ex)
+            {
+                return new BadRequestObjectResult(ex.Message);
+            }
+
         }
     }
 }
