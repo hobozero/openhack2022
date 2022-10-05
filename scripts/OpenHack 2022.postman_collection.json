@@ -157,10 +157,10 @@
 					}
 				},
 				"url": {
-					"raw": "https://openhack2022challenge220221004094019.azurewebsites.net/api/CreateRatings",
+					"raw": "https://openhackratingservice.azurewebsites.net/api/CreateRatings",
 					"protocol": "https",
 					"host": [
-						"openhack2022challenge220221004094019",
+						"openhackratingservice",
 						"azurewebsites",
 						"net"
 					],
