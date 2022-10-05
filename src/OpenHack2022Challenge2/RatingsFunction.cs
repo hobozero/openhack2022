@@ -34,29 +34,37 @@ namespace OpenHack2022
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
         [OpenApiParameter(name: "rating", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The **Rating** parameter")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "The OK response")]
-        public async Task<IActionResult> CreateRatings(
+        public IActionResult CreateRatings(
+            [CosmosDB(
+                databaseName: "Ratings",
+                collectionName: "CustomerRating2",
+                ConnectionStringSetting = "CosmosDBConnectionString")]out dynamic document,
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req)
         {
             _logger.LogInformation($"Rating created test");
 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            string requestBody = new StreamReader(req.Body).ReadToEnd();
 
             try
             {
-                var ratingResponse = await _ratingService.AddRating(requestBody);
+                var ratingResponse = _ratingService.AddRating(requestBody);
                 if (ratingResponse.Success)
                 {
+                    ratingResponse.Data.SetId();
+                    document = ratingResponse.Data;
                     string responseMessage = JsonConvert.SerializeObject(ratingResponse.Data);
                     return new OkObjectResult(responseMessage);
                 }
                 else
                 {
+                    document=null;
                     return new BadRequestObjectResult(ratingResponse.ErrorMessage);
                 }
                 
             }
             catch(OperationResponseException ex)
             {
+                document = null;
                 return new BadRequestObjectResult(ex.Message);
             }
 

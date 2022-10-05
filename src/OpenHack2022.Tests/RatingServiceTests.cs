@@ -15,22 +15,22 @@ namespace OpenHack2022.Tests
     public class RatingServiceTests
     {
         [TestMethod]
-        public async Task CreateRatingShouldHaveWellFormedJSON()
+        public void CreateRatingShouldHaveWellFormedJSON()
         {
             var serviceUnderTest = StubService();
             string badSubmit = "}";
-            var result = await serviceUnderTest.AddRating(badSubmit);
+            var result = serviceUnderTest.AddRating(badSubmit);
             Assert.IsFalse(result.Success);
         }
 
         [TestMethod]
         [DataRow(0)]
         [DataRow(6)]
-        public async Task RatingShouldBeOneToFive(int ratingNumber)
+        public void RatingShouldBeOneToFive(int ratingNumber)
         {
             var serviceUnderTest = StubService();
             var ratingUnderTest = new RatingModel(Guid.NewGuid(), Guid.NewGuid(), string.Empty, ratingNumber, string.Empty);
-            var result = await serviceUnderTest.AddRating(ratingUnderTest);
+            var result = serviceUnderTest.AddRating(ratingUnderTest);
             Assert.IsFalse(result.Success);
         }
 

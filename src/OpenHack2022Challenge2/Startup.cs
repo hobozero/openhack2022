@@ -21,9 +21,9 @@ namespace OpenHack2022
             //TODO: Get Connection string and creds from key store
             var connectionString = string.Empty;
 
-            builder.Services.AddSingleton<IRatingRepository>((s) => {
-                return new RatingRepository(connectionString);
-            });
+            //builder.Services.AddSingleton<IRatingRepository>((s) => {
+            //    return new RatingRepository(connectionString);
+            //});
 
             builder.Services.AddTransient<RatingService>();
 

@@ -6,33 +6,30 @@ namespace OpenHack2022.Models
 {
     public class RatingModel
     {
-        internal static RatingModel Finalize(RatingModel rating)
+        internal void SetId()
         {
-            return new RatingModel(rating.UserId, rating.ProductId, rating.Location, rating.Rating, rating.UserNotes)
-            {
-                RatingId = Guid.NewGuid(),
-                TimeStamp = DateTime.UtcNow,
-                Finalized = true
-            };
+            id = Guid.NewGuid();
+            timeStamp = DateTime.UtcNow;
+            Finalized = true;
         }
 
-        public RatingModel(Guid userId, Guid productId, string location, int rating, string userNotes)
+        public RatingModel(Guid userId, Guid productId, string locationName, int rating, string userNotes)
         {
-            this.UserId = userId;
-            this.ProductId = productId;
-            this.Location = location;
-            this.Rating = rating;
-            this.UserNotes = userNotes;
+            this.userId = userId;
+            this.productId = productId;
+            this.locationName = locationName;
+            this.rating = rating;
+            this.userNotes = userNotes;
         }
 
         internal bool Finalized { get; private set; }
-        public Guid? RatingId { get; private set; }
-        public DateTime TimeStamp { get; private set; }
-        public Guid UserId { get; private set; }
-        public Guid ProductId { get; private set; }
-        public string Location { get; private set; }
-        public int Rating { get; private set; }
-        public string UserNotes { get; private set; }
+        public Guid? id { get; private set; }
+        public DateTime timeStamp { get; private set; }
+        public Guid userId { get; private set; }
+        public Guid productId { get; private set; }
+        public string locationName { get; private set; }
+        public int rating { get; private set; }
+        public string userNotes { get; private set; }
     }
 
 }
