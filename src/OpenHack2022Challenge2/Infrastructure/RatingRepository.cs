@@ -15,6 +15,7 @@ namespace OpenHack2022.Infrastructure
             _connectionString = connectionString;
         }
 
+
         public async Task<Rating> CreateRating(Rating rating)
         {
             //TODO: save rating to data store 

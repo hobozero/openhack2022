@@ -5,6 +5,8 @@ using OpenHack2022.Application;
 using OpenHack2022.Infrastructure;
 using OpenHack2022.Models;
 using System;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace OpenHack2022.Tests
@@ -36,8 +38,17 @@ namespace OpenHack2022.Tests
         {
             var repoMock = new Mock<IRatingRepository>();
             var loggerMock = new Mock<ILogger<RatingService>>();
+            var handlerMock = new Mock<HttpMessageHandler>();
 
-            return new RatingService(loggerMock.Object, repoMock.Object);
+            var httpClient = new HttpClient(handlerMock.Object);
+
+            var response = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent(@""),
+            };
+
+            return new RatingService(loggerMock.Object, repoMock.Object, httpClient);
 
         }
     }

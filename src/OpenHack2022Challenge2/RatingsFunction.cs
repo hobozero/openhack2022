@@ -22,10 +22,10 @@ namespace OpenHack2022
         private readonly RatingService _ratingService;
 
 
-        public RatingsFunction(ILogger<RatingsFunction> log) 
+        public RatingsFunction(ILogger<RatingsFunction> log, RatingService ratingService) 
         {
             _logger = log;
-            _ratingService = new RatingService();
+            _ratingService = ratingService;
         }
 
 
@@ -41,12 +41,19 @@ namespace OpenHack2022
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
 
-
             try
             {
                 var ratingResponse = await _ratingService.AddRating(requestBody);
-                string responseMessage = JsonConvert.SerializeObject(ratingResponse.Data);
-                return new OkObjectResult(responseMessage);
+                if (ratingResponse.Success)
+                {
+                    string responseMessage = JsonConvert.SerializeObject(ratingResponse.Data);
+                    return new OkObjectResult(responseMessage);
+                }
+                else
+                {
+                    return new BadRequestObjectResult(ratingResponse.ErrorMessage);
+                }
+                
             }
             catch(OperationResponseException ex)
             {

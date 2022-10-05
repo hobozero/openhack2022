@@ -1,4 +1,7 @@
 ﻿using Microsoft.Azure.Functions.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using OpenHack2022.Application;
 using OpenHack2022.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -13,11 +16,16 @@ namespace OpenHack2022
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
-            //builder.Services.AddHttpClient();
+            builder.Services.AddHttpClient();
 
-            //builder.Services.AddTransient((s) => {
-            //    return new RatingRepository();
-            //});
+            //TODO: Get Connection string and creds from key store
+            var connectionString = string.Empty;
+
+            builder.Services.AddSingleton<IRatingRepository>((s) => {
+                return new RatingRepository(connectionString);
+            });
+
+            builder.Services.AddTransient<RatingService>();
 
         }
     }
