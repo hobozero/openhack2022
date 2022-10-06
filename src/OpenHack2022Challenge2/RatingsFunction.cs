@@ -41,7 +41,7 @@ namespace OpenHack2022
                 databaseName: "Ratings",
                 collectionName: "CustomerRating2",
                 ConnectionStringSetting = "CosmosDBConnectionString")]out dynamic document,
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req)
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req)
         {
             _logger.LogInformation($"Rating created test");
 
