@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenHack2022", "OpenHack202
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHack2022.Tests", "OpenHack2022.Tests\OpenHack2022.Tests.csproj", "{84EEC80D-49CC-49E0-8D6E-F1D6674F1AC6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderAggregator", "OrderAggregator\OrderAggregator.csproj", "{8C6AD5E9-9A82-46F3-8EE6-666F47EB95F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testFunction", "testFunction\testFunction.csproj", "{EF5AFE49-DAB9-4354-924B-7CE8B39EB68B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{84EEC80D-49CC-49E0-8D6E-F1D6674F1AC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84EEC80D-49CC-49E0-8D6E-F1D6674F1AC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84EEC80D-49CC-49E0-8D6E-F1D6674F1AC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C6AD5E9-9A82-46F3-8EE6-666F47EB95F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C6AD5E9-9A82-46F3-8EE6-666F47EB95F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C6AD5E9-9A82-46F3-8EE6-666F47EB95F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C6AD5E9-9A82-46F3-8EE6-666F47EB95F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF5AFE49-DAB9-4354-924B-7CE8B39EB68B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF5AFE49-DAB9-4354-924B-7CE8B39EB68B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF5AFE49-DAB9-4354-924B-7CE8B39EB68B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF5AFE49-DAB9-4354-924B-7CE8B39EB68B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
